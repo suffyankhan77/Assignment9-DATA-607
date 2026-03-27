@@ -1,0 +1,63 @@
+---
+title: "Week 9 Assignment – Approach"
+author: "Muhammad Suffyan Khan"
+format: html
+editor: visual
+---
+
+## Objective
+
+The objective of this assignment is to use one of the public New York Times APIs in R, retrieve data through an authenticated API request, parse the JSON response, and transform the results into a clean tidy data frame for analysis.
+
+For this assignment, I selected the **New York Times Most Popular API**. This API provides metadata for articles that are most viewed, most shared, or most emailed over a selected period. I chose this API because it returns article-level information in a relatively clean and structured format, making it appropriate for transformation into a tidy data frame in R.
+
+The main question I plan to explore is:
+
+**Which New York Times sections produced the most-viewed articles in the last 7 days?**
+
+## Selected API
+
+The API selected for this assignment is the **New York Times Most Popular API**.
+
+**Endpoint chosen:**\
+`/svc/mostpopular/v2/viewed/7.json`
+
+This endpoint returns the most viewed New York Times articles over the last 7 days.
+
+The API documentation is available through the New York Times Developer portal. To access the data, an API key is required. In this assignment, I will authenticate securely by storing the key in an environment variable and retrieving it in R with `Sys.getenv("NYT_API_KEY")` rather than hard-coding it directly in the script.
+
+## Planned Workflow
+
+The workflow for this assignment will be:
+
+1. Load required libraries such as httr, jsonlite, and tidyverse
+2. Retrieve the API key using Sys.getenv()
+3. Make a GET request to the API endpoint
+4. Parse the JSON response
+5. Extract the results section containing article data
+6. Convert the data into a tibble
+7. Select relevant columns such as title, section, subsection, published_date, and views
+8. Perform a simple analysis to count articles by section
+
+## Anticipated Data Cleaning Decisions
+
+Although the Most Popular API is cleaner than some other API options, there are still a few data-cleaning decisions that may be necessary.
+
+First, some fields may contain missing values, especially `subsection` or other optional metadata. These will either be kept as `NA` values or replaced only if a specific transformation is needed for analysis.
+
+Second, the JSON response may include nested structures, particularly for multimedia information. Since the primary question focuses on article sections rather than media content, I may exclude deeply nested multimedia fields from the main tidy data frame unless they are needed.
+
+Third, date fields such as `published_date` and `updated` may need to be converted into appropriate date or date-time formats.
+
+Finally, I will retain only the columns that are relevant for identifying, grouping, and summarizing the articles so that the final data frame remains tidy and easy to interpret.
+
+## Expected Outcome
+
+The expected outcome is a reproducible R workflow that retrieves New York Times article metadata from the Most Popular API and transforms it into a clean tidy data frame.
+
+Using that cleaned data, I expect to identify which news sections are most represented among the most viewed New York Times articles over the past 7 days. This will demonstrate both technical API handling in R and a basic exploratory analysis of the returned data.
+
+
+
+
+
